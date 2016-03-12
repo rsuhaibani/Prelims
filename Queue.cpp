@@ -6,8 +6,10 @@ class node {
 					public:
 						node<T> *next;
 						T data;
-						node( T d, node <T> *n)
-						{next=n;
+						node() 
+						{next=nullptr;}
+						node( T d, node<T> *n)
+						{next=nullptr;
 						data=d;}
 			};
 
@@ -26,7 +28,7 @@ public:
 		// node<T> new node<T> newCopy; BIG MISTAKE
 		//Remember you need to point to the front of the Queue so you can copy each node one by one
 
-		Node<T> *ptr = orignal.front;
+		node<T> *ptr = orignal.front;
 
 
 		while(ptr!=nullptr)
@@ -78,33 +80,34 @@ public:
 	void enqueue(T item) //???
 	{ if(front==nullptr)
 	{
-	//Node<T> *n = new Node<T>(item); // Do not forget the astrisk
-	//front=n;
-	//back=n;
+	node<T> *n = new node<T>(item,nullptr); // Do not forget the astrisk
+	front=n;
+	back=n;
 	}
 	  else 
 		addToBack(item);
 	}
-	Queue<T> dequeue()
+	void dequeue()
 	{ 
 		if (front=nullptr)
 			cout<<"nothing to remove!"<<endl;
 		else
 		removeFromFront();
 	}
-	T addToBack(T item)
+	void addToBack(T item)
 	{
-	node<T> *n = new node<T>(item);
+	node<T> *n = new node<T>(item,nullptr);
 		back->next=n;
 		back=n;
+		
 	}
-	T removeFromFront()
+	void removeFromFront()
 	{
-	node<T>  *tmp=front;
+	node<T>  * tmp = front;
 	front = front->next;
-	T val = tmp->data;
+	//T val = tmp->data;
 	delete tmp;
-	return val;
+	//return val;
 
 	}
 
@@ -116,13 +119,13 @@ int main() {
 
 	Queue<int> ReemQueue;
 
-	ReemQueue.enqueue(1);
-	ReemQueue.enqueue(2);
-	ReemQueue.enqueue(3);
+	for(int i=0;i<3;i++)
+		{ReemQueue.enqueue(i);}
+	
 
 
 	ReemQueue.dequeue();
-	ReemQueue.dequeue();
+	//ReemQueue.dequeue();
 
 
 
