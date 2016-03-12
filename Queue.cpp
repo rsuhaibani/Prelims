@@ -23,9 +23,8 @@ public:
 	back=nullptr;} //constructor
 	Queue(const Queue<T> & orignal) // copy constructor  
 	{
-		front= nullptr;
+		front=nullptr;
 		back=nullptr;
-		// node<T> new node<T> newCopy; BIG MISTAKE
 		//Remember you need to point to the front of the Queue so you can copy each node one by one
 
 		node<T> *ptr = orignal.front;
@@ -33,7 +32,6 @@ public:
 
 		while(ptr!=nullptr)
 		{
-			addToBack(data->next); // BIG MISTAKE! how do you enter the addtoback fun without going the enqueue!!!
 			enqueue(ptr->data);
 			ptr=ptr->next; // to run one all the queue
 		}
@@ -46,7 +44,7 @@ public:
 	 
 	}
 
-	Queue<T>& operator=(const Queue<T> &rhs) // assignment operator DO NOT FORGET the const HERE!!!
+	Queue & operator=(const Queue &rhs) // assignment operator DO NOT FORGET the const HERE!!!
 
 	{
 	
@@ -70,7 +68,6 @@ public:
 	{ node<T> *tmpF=front->next.rhs;
 				front->next.rhs=front;
 				front=tmpF;
-
 	node<T> *tmpB=back->next.rhs;
 			back->next.rhs=back;
 			back=tmpB;
@@ -87,12 +84,19 @@ public:
 	  else 
 		addToBack(item);
 	}
-	void dequeue()
-	{ 
-		if (front=nullptr)
+	T dequeue()
+	{ 	node<T>  *temp = front->next;
+		T val = front->data;
+
+		if (front==nullptr)
 			cout<<"nothing to remove!"<<endl;
-		else
-		removeFromFront();
+		else				
+		delete front;
+		front=temp;
+		return val;
+
+	
+
 	}
 	void addToBack(T item)
 	{
@@ -101,15 +105,8 @@ public:
 		back=n;
 		
 	}
-	void removeFromFront()
-	{
-	node<T>  * tmp = front;
-	front = front->next;
-	//T val = tmp->data;
-	delete tmp;
-	//return val;
 
-	}
+	
 
 
 
@@ -119,13 +116,17 @@ int main() {
 
 	Queue<int> ReemQueue;
 
-	for(int i=0;i<3;i++)
+	for(int i=0;i<=3;i++)
 		{ReemQueue.enqueue(i);}
-	
 
 
-	ReemQueue.dequeue();
-	//ReemQueue.dequeue();
+	std::cerr << "ReemQueue: ";
+	node<int> *tmp = ReemQueue.front;
+	while (tmp !=  nullptr) {
+		std::cerr << tmp->data << " ";
+		tmp = tmp->next;
+	}
+	std::cerr << std::endl;
 
 
 
