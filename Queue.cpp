@@ -44,10 +44,10 @@ public:
 	 
 	}
 
-	Queue & operator=(const Queue &rhs) // assignment operator DO NOT FORGET the const HERE!!!
+	Queue<T> & operator=(const Queue<T> srhs) // assignment operator DO NOT FORGET the const HERE!!!
 
 	{
-	
+		//works fine
 		node<T> *ptr = rhs.front;
 
 
@@ -58,22 +58,15 @@ public:
 		}
 
 		return *this;
+
+		//Works fine
+		/*node<T> * tmp = rhs.front;
+		rhs.front = front;
+		front = tmp;
+
+		return *this;*/
 	}
-	/*
-	Queue& operator=(Queue<T> &obj) // assignment operator 
-	{	swap(obj);
-		return *this;
-	}   
-	void swap(Queue<T> rhs) //See here the value is a copy of the prev assignment operator function
-	{ node<T> *tmpF=front->next.rhs;
-				front->next.rhs=front;
-				front=tmpF;
-	node<T> *tmpB=back->next.rhs;
-			back->next.rhs=back;
-			back=tmpB;
-	
-	}
-	*/
+
 	void enqueue(T item) //???
 	{ if(front==nullptr)
 	{
@@ -117,7 +110,10 @@ int main() {
 	Queue<int> ReemQueue;
 
 	for(int i=0;i<=3;i++)
-		{ReemQueue.enqueue(i);}
+		{ReemQueue.enqueue(i);} // working
+
+	ReemQueue.dequeue();		// working
+
 
 
 	std::cerr << "ReemQueue: ";
@@ -125,6 +121,18 @@ int main() {
 	while (tmp !=  nullptr) {
 		std::cerr << tmp->data << " ";
 		tmp = tmp->next;
+	}
+	std::cerr << std::endl;
+
+
+	Queue<int> ReemQueue2=ReemQueue;
+
+
+	std::cerr << "ReemQueue2: ";
+	node<int> *tmp2 = ReemQueue2.front;
+	while (tmp2 !=  nullptr) {
+		std::cerr << tmp2->data << " ";
+		tmp2 = tmp2->next;
 	}
 	std::cerr << std::endl;
 
